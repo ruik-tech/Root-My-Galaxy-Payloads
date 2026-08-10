@@ -12,7 +12,7 @@
 | Display Build | BP4A.251205.006.S731BXXU6BZDP |
 | Fingerprint | samsung/r13sxx/essi:16/BP4A.251205.006/S731BXXU6BZDP:user/release-keys |
 | Android Version | 16 (API 36) |
-| Security Patch | May 2026 |
+| Security Patch | May 5 2026 |
 
 ## Kernel
 
